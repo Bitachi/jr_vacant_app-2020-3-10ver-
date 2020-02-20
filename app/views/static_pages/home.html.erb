@@ -1,9 +1,14 @@
 <% provide(:title, "ホーム") %>
-<h1>JR空席通知アプリ</h1>
-<p>
-  このページは以下のチュートリアルを参考にして作られました。
-  <a href="https://railstutorial.jp/">Ruby on Rails Tutorial</a>
-</p>
-<p>また、以下のサイトを用いて空席を通知します。利用可能時間は6:30~22:30です。
-  <a href="http://www.jr.cyberstation.ne.jp/vacancy/Vacancy.html">JRサイバーステーション</a>
-</p>
+<div class="center jumbotron">
+
+
+  <h1>JR空席通知アプリ</h1>
+  <p>
+    このページは<a target="_blank" href="https://railstutorial.jp/">この</a>チュートリアルを参考にして作られました。
+
+  </p>
+  <p>また、<a target="_blank" href="http://www.jr.cyberstation.ne.jp/vacancy/Vacancy.html">この</a>サイトを用いて空席を通知します。利用可能時間は6:30~22:30です。
+
+  </p>
+  <%= link_to "新規登録", signup_path, class: "btn btn-lg btn-primary" %>
+</div>

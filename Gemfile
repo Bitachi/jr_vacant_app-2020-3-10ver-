@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.0'
 
 gem 'rails', '~> 5.2.3'
+gem 'bootstrap-sass', '3.3.7'
 gem 'sqlite3', '~> 1.3.6', group: :development
 gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
@@ -28,6 +29,7 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
+  gem 'rails-controller-testing'
 end
 
 group :production do
