@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'notifications/new'
   get 'sessions/new'
   get 'users/new'
   root "static_pages#home"
@@ -10,5 +11,9 @@ Rails.application.routes.draw do
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
+
+  get "/notifications", to: "notifications#new"
+  post "/notifications", to: "notifications#create"
+  delete "/notifications", to:"notifications#destroy"
   resources :users
 end

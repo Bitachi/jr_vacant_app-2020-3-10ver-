@@ -10,7 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_022448) do
+ActiveRecord::Schema.define(version: 2020_02_20_083706) do
+
+  create_table "data", force: :cascade do |t|
+    t.string "email"
+    t.string "token"
+    t.string "month"
+    t.string "day"
+    t.string "train"
+    t.string "dep_stn"
+    t.string "arr_stn"
+    t.string "hour"
+    t.string "minute"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "email"
+    t.string "token"
+    t.string "month"
+    t.string "day"
+    t.string "train"
+    t.string "dep_stn"
+    t.string "arr_stn"
+    t.string "hour"
+    t.string "minute"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
