@@ -40,7 +40,8 @@ require "#{Rails.root}/app/models/notification.rb"
 
   end
 
-  def logged_in?
-    if
+
+
+
 
 end
