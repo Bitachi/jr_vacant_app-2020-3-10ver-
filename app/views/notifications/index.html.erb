@@ -2,7 +2,7 @@
 <h1>通知一覧</h1>
 
 <%  @notifcations.each do |notification|  %>
-<p>
+<p><%=notification.token%>
   <%= notification.month %>
    <%= notification.day %>
    <%= notification.train %>

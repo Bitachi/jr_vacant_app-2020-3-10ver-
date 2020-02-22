@@ -1,5 +1,5 @@
 class Notification < ApplicationRecord
-  #include Encryptor
+  include Encryptor
   before_save { encrypt_token }
 
   def encrypt_token
