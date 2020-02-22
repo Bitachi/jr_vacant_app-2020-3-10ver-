@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
 
   get "/notifications", to: "notifications#new"
+  get "/notifications/index", to: "notifications#index"
+  get "notifications/:id/destroy", to: "notifications#destroy"
   post "/notifications", to: "notifications#create"
   delete "/notifications", to:"notifications#destroy"
   resources :users

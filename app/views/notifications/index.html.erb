@@ -1,0 +1,13 @@
+<% provide(:title, "通知一覧") %>
+<h1>通知一覧</h1>
+
+<%  @notifcations.each do |notification|  %>
+<p>
+  <%= notification.month %>
+   <%= notification.day %>
+   <%= notification.train %>
+    <%= notification.dep_stn %>
+     <%= notification.arr_stn %>
+     <%= link_to "削除", "/notifications/#{notification.id}/destroy" %>
+</p>
+<%end%>
