@@ -1,5 +1,4 @@
 class NotificationsController < ApplicationController
-#include Encryptor
 include SessionsHelper
 require "#{Rails.root}/app/models/notification.rb"
   def new
