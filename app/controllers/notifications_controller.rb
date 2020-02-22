@@ -30,7 +30,7 @@ require "#{Rails.root}/app/models/notification.rb"
   def destroy
     Notification.find_by(id: params[:id]).destroy
     flash[:success] = "通知設定を消去しました"
-    redirect_to notificaitons_index_path
+    redirect_to notifications_index_path
   end
 
   private
