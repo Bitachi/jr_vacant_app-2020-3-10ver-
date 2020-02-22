@@ -2,26 +2,26 @@ class Notification < ApplicationRecord
   #include Encryptor
   before_save { encrypt_token }
 
-  def encrypt(plaintext)
+  def encrypt1(plaintext)
     key_len = ActiveSupport::MessageEncryptor.key_len
     secret = Rails.application.key_generator.generate_key('salt', key_len)
     crypt = ActiveSupport::MessageEncryptor.new(secret)
     return crypt.encrypt_and_sign(plaintext)
   end
 
-  def decrypt(ciphertext)
+  def decrypt1(ciphertext)
     key_len = ActiveSupport::MessageEncryptor.key_len
     secret = Rails.application.key_generator.generate_key('salt', key_len)
     crypt = ActiveSupport::MessageEncryptor.new(secret)
     return crypt.decrypt_and_verify(ciphertext)
   end
-  
+
   def encrypt_token
      self.token = encrypt(self.token)
   end
 
   def get_token
-    return decrypt(self.token)
+    return decrypt1(self.token)
   end
   def self.notify
     notifications = Notification.all
