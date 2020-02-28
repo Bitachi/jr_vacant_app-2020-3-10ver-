@@ -2,6 +2,7 @@ class Notification < ApplicationRecord
   #include Encryptor
   require 'openssl'
   require 'base64'
+  password = ENV['MYAES_KEY']
   # ======================================
 # <暗号化>
 # ======================================
@@ -66,11 +67,11 @@ class Notification < ApplicationRecord
   end
 
   def encrypt_token
-     self.token, self.status = aes_encrypt(self.token, ENV['MYAES_KEY'], 128)
+     self.token, self.salt = aes_encrypt(self.token, password, 128)
   end
 
   def get_token
-    return aes_decrypt(self.token, ENV['MYAES_KEY'], self.salt, 128)
+    return aes_decrypt(self.token, password, self.salt, 128)
   end
 
   def self.notify
