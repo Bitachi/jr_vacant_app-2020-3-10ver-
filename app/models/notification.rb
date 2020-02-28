@@ -35,7 +35,7 @@ class Notification < ApplicationRecord
     salt = Base64.encode64(salt).chomp
 
     # 暗号とsaltを返す
-    encrypted_text, salt
+    return encrypted_text, salt
   end
 
 # ======================================
