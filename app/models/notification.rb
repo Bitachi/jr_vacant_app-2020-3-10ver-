@@ -1,29 +1,79 @@
 class Notification < ApplicationRecord
   #include Encryptor
+  require 'openssl'
+  require 'base64'
+  password = ENV['KEY']
+  # ======================================
+# <暗号化>
+# ======================================
+# plain_text: 暗号化したい文字列
+# password  : 好きなパスワード
+# bit       : 鍵の長さをビット数で指定。128, 192, 256が指定できる。
+#             基本的には256を指定しておけば安心。
+# ======================================
   before_save { encrypt_token }
 
 
-  def encrypt(plaintext)
-    key_len = ActiveSupport::MessageEncryptor.key_len
-    secret = Rails.application.key_generator.generate_key('salt', key_len)
-    crypt = ActiveSupport::MessageEncryptor.new(secret)
-    return crypt.encrypt_and_sign(plaintext)
+  def aes_encrypt(plain_text, password, bit)
+
+    # saltを生成
+    salt = OpenSSL::Random.random_bytes(8)
+
+    # 暗号器を生成
+    enc = OpenSSL::Cipher::AES.new(bit, :CBC)
+    enc.encrypt
+
+    # パスワードとsaltをもとに鍵とivを生成し、設定
+    key_iv = OpenSSL::PKCS5.pbkdf2_hmac(password, salt, 2000, enc.key_len + enc.iv_len, "sha256")
+    enc.key = key_iv[0, enc.key_len]
+    enc.iv = key_iv[enc.key_len, enc.iv_len]
+
+    # 文字列を暗号化
+    encrypted_text = enc.update(plain_text) + enc.final
+
+    # Base64でエンコード
+    encrypted_text = Base64.encode64(encrypted_text).chomp
+    salt = Base64.encode64(salt).chomp
+
+    # 暗号とsaltを返す
+    [encrypted_text, salt]
   end
 
-  def decrypt(ciphertext)
-    key_len = ActiveSupport::MessageEncryptor.key_len
-    secret = Rails.application.key_generator.generate_key('salt', key_len)
-    crypt = ActiveSupport::MessageEncryptor.new(secret)
-    return crypt.decrypt_and_verify(ciphertext)
+# ======================================
+# <復号>
+# ======================================
+# encrypted_text: 復号したい文字列
+# password      : 暗号化した時に指定した文字列
+# salt          : 暗号化した時に生成されたsalt
+# bit           : 暗号化した時に指定したビット数
+# ======================================
+  def aes_decrypt(encrypted_text, password, salt, bit)
+
+    # Base64でデコード
+    encrypted_text = Base64.decode64(encrypted_text)
+    salt = Base64.decode64(salt)
+
+    # 復号器を生成
+    dec = OpenSSL::Cipher::AES.new(bit, :CBC)
+    dec.decrypt
+
+    # パスワードとsaltをもとに鍵とivを生成し、設定
+    key_iv = OpenSSL::PKCS5.pbkdf2_hmac(password, salt, 2000, dec.key_len + dec.iv_len, "sha256")
+    dec.key = key_iv[0, dec.key_len]
+    dec.iv = key_iv[dec.key_len, dec.iv_len]
+
+    # 暗号を復号
+    dec.update(encrypted_text) + dec.final
   end
 
   def encrypt_token
-     self.token = encrypt(self.token)
+     [self.token, self.salt] = aes_encrypt(self.token, ENV['KEY'], 128)
   end
 
   def get_token
-    return decrypt(self.token)
+    return aes_decrypt(self.token, ENV['KEY'], self.salt, 128)
   end
+
   def self.notify
     notifications = Notification.all
 

@@ -3,6 +3,7 @@
 
 <%  @notifcations.each do |notification|  %>
 <p><%=notification.token%>
+  <%=notification.get_token%>
   <%= notification.month %>
    <%= notification.day %>
    <%= notification.train %>
