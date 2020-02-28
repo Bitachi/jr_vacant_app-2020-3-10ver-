@@ -2,7 +2,6 @@ class Notification < ApplicationRecord
   #include Encryptor
   require 'openssl'
   require 'base64'
-  password = ENV['MYAES_KEY']
   # ======================================
 # <暗号化>
 # ======================================
@@ -36,7 +35,7 @@ class Notification < ApplicationRecord
     salt = Base64.encode64(salt).chomp
 
     # 暗号とsaltを返す
-    [encrypted_text, salt]
+    encrypted_text, salt
   end
 
 # ======================================
