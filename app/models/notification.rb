@@ -2,7 +2,7 @@ class Notification < ApplicationRecord
   #include Encryptor
   require 'openssl'
   require 'base64'
-  password = ENV['KEY']
+  password = ENV['MYAES_KEY']
   # ======================================
 # <暗号化>
 # ======================================
