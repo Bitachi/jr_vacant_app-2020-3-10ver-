@@ -78,7 +78,7 @@ class Notification < ApplicationRecord
 
     notifications.each do |notification|
       #notification.token  = notification.get_token(password)
-      system("python3  ./env_py/main.py #{notification.month} #{notification.day} #{notification.hour} #{notification.minute} #{notification.train} #{notification.dep_stn} #{notification.arr_stn} #{notification.get_token}")
+      system("python3 main.py #{notification.month} #{notification.day} #{notification.hour} #{notification.minute} #{notification.train} #{notification.dep_stn} #{notification.arr_stn} #{notification.get_token}")
     end
   end
 
