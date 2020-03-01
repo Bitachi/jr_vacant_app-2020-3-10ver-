@@ -1,7 +1,7 @@
 class Notification < ApplicationRecord
   require 'openssl'
   require 'base64'
-
+  password = ENV['MYAES_KEY']
   # ======================================
 # <暗号化>
 # ======================================
@@ -35,7 +35,7 @@ class Notification < ApplicationRecord
     salt = Base64.encode64(salt).chomp
 
     # 暗号とsaltを返す
-    return encrypted_text, salt
+    [encrypted_text, salt]
   end
 
 # ======================================
@@ -77,7 +77,7 @@ class Notification < ApplicationRecord
     notifications = Notification.all
 
     notifications.each do |notification|
-      notification.token  = notification.get_token
+      notification.token  = notification.get_token(password)
       system("python3  ./env_py/main.py #{notification.month} #{notification.day} #{notification.hour} #{notification.minute} #{notification.train} #{notification.dep_stn} #{notification.arr_stn} #{notification.token}")
     end
   end
@@ -85,4 +85,4 @@ class Notification < ApplicationRecord
 
 end
 
-Notification.notify
+#Notification.notify

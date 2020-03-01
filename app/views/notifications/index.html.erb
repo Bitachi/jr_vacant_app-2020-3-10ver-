@@ -1,9 +1,11 @@
 <% provide(:title, "通知一覧") %>
+<% password = @password %>
 <h1>通知一覧</h1>
 
 <%  @notifcations.each do |notification|  %>
 <p><%=notification.token%>
   <%=notification.get_token%>
+  <%= notification.salt%>
   <%= notification.month %>
    <%= notification.day %>
    <%= notification.train %>

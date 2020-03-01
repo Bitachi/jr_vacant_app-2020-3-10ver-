@@ -19,6 +19,7 @@ require "#{Rails.root}/app/models/notification.rb"
   end
 
   def index
+    @password = ENV['MYAES_KEY']
     @current_user = current_user
     @notifcations = Notification.where(email: @current_user.email)
   end
