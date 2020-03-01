@@ -52,7 +52,7 @@ if test -z "$VIRTUAL_ENV_DISABLE_PROMPT"
         set -l old_status $status
 
         # Prompt override?
-        if test -n "(env_py) "
+        if test -n "(env_py) "            
             printf "%s%s" "(env_py) " (set_color normal)
         else
             # ...Otherwise, prepend env
