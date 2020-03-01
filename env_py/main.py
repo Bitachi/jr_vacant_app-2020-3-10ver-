@@ -34,6 +34,7 @@ if __name__ == '__main__':
     my_token = args[8]
     #プログラム動作開始を通知
     send_message("Started Working", my_token)
+
     #h = 1
     #while h == 1:
 
