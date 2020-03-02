@@ -5,7 +5,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     get signup_path
     assert_no_difference "User.count" do
       post users_path, params: { user: { name: "",
-                                          email: "invalid",
+                                          email: "invali",
                                           password: "foo",
                                           password_confirmation: "bar"}}
     end

@@ -10,7 +10,9 @@ class Notification < ApplicationRecord
 # bit       : 鍵の長さをビット数で指定。128, 192, 256が指定できる。
 #             基本的には256を指定しておけば安心。
 # ======================================
+  validates :token,  presence: true
   before_save { encrypt_token }
+
 
 
   def aes_encrypt(plain_text, password, bit)

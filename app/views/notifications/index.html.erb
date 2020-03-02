@@ -14,3 +14,30 @@
      <%= link_to "削除", "/notifications/#{notification.id}/destroy" %>
 </p>
 <%end%>
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>乗車月</th>
+        <th>乗車日</th>
+        <th>列車</th>
+        <th>乗車駅</th>
+        <th>下車駅</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%  @notifcations.each do |notification|  %>
+      <tr>
+        <td scope="row"><%= notification.month %></th>
+        <td><%= notification.day %></td>
+        <td><%= notification.train %></td>
+        <td><%= notification.dep_stn %></td>
+        <td><%= notification.arr_stn %></td>
+        <td><%= link_to "削除", "/notifications/#{notification.id}/destroy" %></td>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+</div>

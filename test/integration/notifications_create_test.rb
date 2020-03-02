@@ -14,7 +14,7 @@ class NotificationsCreateTest < ActionDispatch::IntegrationTest
     assert_difference "Notification.count", 1 do
       post "/notifications", params: { notification: { token: "SampleToken",
                                           dep_stn: "東京",
-                                          arr_stn: "大垣",
+                                          arr_stn: "岡山",
                                           hour: "22",
                                           minute: "00",
                                           train: "在来線列車",

@@ -63,6 +63,7 @@ if __name__ == '__main__':
     soup = BeautifulSoup(driver.page_source, "lxml")
     table = soup.find_all("td")
     driver.close()
+    #入力フォームが有効な場合に期待されるページに含まれる文字列
     pattern1 = '<td align="center" width="70">発時刻</td>'
     i=0
     # タイトルリストを取得して表示
@@ -72,7 +73,6 @@ if __name__ == '__main__':
 
         if result1:
             i += 1
-            print (1)
-            break
+            return True
     if i == 0:
-        print (0)
+        return False

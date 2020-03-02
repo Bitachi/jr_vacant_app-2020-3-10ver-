@@ -1,27 +1,27 @@
 class NotificationsController < ApplicationController
-#include Encryptor
-include SessionsHelper
-require "#{Rails.root}/app/models/notification.rb"
+  include SessionsHelper
+  require "#{Rails.root}/app/models/notification.rb"
+
   def new
     @notification = Notification.new()
   end
 
+  def index
+    @current_user = current_user
+    @notifcations = Notification.where(email: @current_user.email)
+  end
+  
   def create
     @notification = Notification.new(notification_params)
     @current_user = current_user
     @notification.email = @current_user.email
-    if @notification.save
+    if @notification.save && system("python3 form_valid?.py #{@notification.month} #{@notification.day} #{@notification.hour} #{@notification.minute} #{@notification.train} #{@notification.dep_stn} #{@notification.arr_stn}")
       flash[:success] = "通知の登録に成功しました"
       redirect_to(root_path)
     else
-      render "new"
+      flash[:danger] = "入力内容が不正です。"
+      redirect_to notifications_path
     end
-  end
-
-  def index
-    @password = ENV['MYAES_KEY']
-    @current_user = current_user
-    @notifcations = Notification.where(email: @current_user.email)
   end
 
   def show
@@ -40,9 +40,4 @@ require "#{Rails.root}/app/models/notification.rb"
                                             :hour, :minute, :dep_stn, :arr_stn)
 
   end
-
-
-
-
-
 end
