@@ -41,7 +41,7 @@ if __name__ == '__main__':
     #driver_path = "/Users/takamigo/simple_web_crawlers/chromedriver"
     #デプロイする場合
     driver_path = "/app/.chromedriver/bin/chromedriver"
-
+    
     # Chromeを起動
     driver = webdriver.Chrome(executable_path=driver_path, options=options)
 
