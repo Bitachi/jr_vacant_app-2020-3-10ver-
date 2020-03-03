@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   get "/notifications", to: "notifications#new"
   get "/notifications/index", to: "notifications#index"
   get "notifications/:id/destroy", to: "notifications#destroy"
+  get "notifications/:id/edit", to: "notifications#edit"
   post "/notifications", to: "notifications#create"
+  post "/notifications/:id/update", to: "notifications#update"
   delete "/notifications", to:"notifications#destroy"
   resources :users
 end

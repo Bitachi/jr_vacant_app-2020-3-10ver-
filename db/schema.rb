@@ -10,21 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_28_123025) do
-
-  create_table "data", force: :cascade do |t|
-    t.string "email"
-    t.string "token"
-    t.string "month"
-    t.string "day"
-    t.string "train"
-    t.string "dep_stn"
-    t.string "arr_stn"
-    t.string "hour"
-    t.string "minute"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 2020_03_03_093400) do
 
   create_table "notifications", force: :cascade do |t|
     t.string "email"
@@ -47,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_02_28_123025) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

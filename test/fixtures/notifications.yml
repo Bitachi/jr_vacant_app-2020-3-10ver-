@@ -1,23 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  email: MyString
-  token: MyString
-  month: MyString
-  day: MyString
-  train: MyString
-  dep_stn: MyString
-  arr_stn: MyString
-  hour: MyString
-  minute: MyString
-
-two:
-  email: MyString
-  token: MyString
-  month: MyString
-  day: MyString
-  train: MyString
-  dep_stn: MyString
-  arr_stn: MyString
-  hour: MyString
-  minute: MyString
+michael:
+  email: michael@example.com
+  token: michael_token
+  month: "03"
+  day: "22"
+  train: 在来線列車
+  dep_stn: 東京
+  arr_stn: 岡山
+  hour: "22"
+  minute: "00"
