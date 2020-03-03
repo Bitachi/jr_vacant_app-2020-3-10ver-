@@ -109,4 +109,4 @@ if __name__ == '__main__':
             message = "I'm working."
             send_message(message, my_token)
     else:
-        time.sleep(60*60*8)
+        #time.sleep(60*60*8)
