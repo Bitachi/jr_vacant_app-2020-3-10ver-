@@ -1,4 +1,5 @@
 class NotificationsController < ApplicationController
+  before_action :logged_in_user, only: [:index, :create, :update, :edit]
   include SessionsHelper
   require "#{Rails.root}/app/models/notification.rb"
 
@@ -10,7 +11,7 @@ class NotificationsController < ApplicationController
     @current_user = current_user
     @notifcations = Notification.where(email: @current_user.email)
   end
-  
+
   def create
     @notification = Notification.new(notification_params)
     @current_user = current_user
@@ -34,10 +35,36 @@ class NotificationsController < ApplicationController
     redirect_to notifications_index_path
   end
 
+  def edit
+    @notification = Notification.find(params[:id])
+  end
+
+  def update
+    @notification = Notification.find(params[:id])
+    if notification_params[:token] == ""
+      flash[:danger] = "トークンを入力してください"
+      render "edit"
+    else
+      if @notification.update_attributes(notification_params)
+        flash[:success] = "通知登録の更新に成功しました。"
+        redirect_to notifications_index_path
+      else
+        flash[:danger] = "入力内容が不正です。"
+        redirect_to notifications_path
+      end
+    end
+  end
+
   private
   def notification_params
       params.require(:notification).permit(:token, :month, :day, :train,
                                             :hour, :minute, :dep_stn, :arr_stn)
-
+  end
+  #ログインしているかどうか確認
+  def logged_in_user
+    unless logged_in?
+      flash[:danger] = "ログインしてください"
+      redirect_to login_path
+    end
   end
 end

@@ -3,8 +3,8 @@
 <h1>通知一覧</h1>
 
 <%  @notifcations.each do |notification|  %>
-<p><%=notification.token%>
-  <%=notification.get_token%>
+<p>token: <%=notification.token%>
+get_token:  <%=notification.get_token%>
   <%= notification.salt%>
   <%= notification.month %>
    <%= notification.day %>
@@ -30,11 +30,12 @@
     <tbody>
       <%  @notifcations.each do |notification|  %>
       <tr>
-        <td scope="row"><%= notification.month %></th>
+        <td scope="row"><%= notification.month %></td>
         <td><%= notification.day %></td>
         <td><%= notification.train %></td>
         <td><%= notification.dep_stn %></td>
         <td><%= notification.arr_stn %></td>
+        <td><%= link_to "編集", "/notifications/#{notification.id}/edit" %></td>
         <td><%= link_to "削除", "/notifications/#{notification.id}/destroy" %></td>
       </tr>
       <%end%>
