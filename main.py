@@ -50,9 +50,9 @@ if __name__ == '__main__':
 
 
     #ローカルの場合
-    #driver_path = "/Users/takamigo/simple_web_crawlers/chromedriver"
+    driver_path = "/Users/takamigo/simple_web_crawlers/chromedriver"
     #デプロイする場合
-    driver_path = "/app/.chromedriver/bin/chromedriver"
+    #driver_path = "/app/.chromedriver/bin/chromedriver"
 
     # Chromeを起動
     driver = webdriver.Chrome(executable_path=driver_path, options=options)
@@ -102,11 +102,12 @@ if __name__ == '__main__':
                     send_message(message, my_token)
 
     driver.close()
+    time.sleep(10)
     #h += 1
-    if dt1<dt2:
-        time.sleep(10)
-        if dt1.minute == 00 and (dt1.second >= 00 and dt1.second < 20):
-            message = "I'm working."
-            send_message(message, my_token)
-    else:
-        #time.sleep(60*60*8)
+    #if dt1<dt2:
+    #    time.sleep(10)
+    #    if dt1.minute == 00 and (dt1.second >= 00 and dt1.second < 20):
+    #        message = "I'm working."
+    #        send_message(message, my_token)
+    #else:
+    #    time.sleep(60*60*8)
