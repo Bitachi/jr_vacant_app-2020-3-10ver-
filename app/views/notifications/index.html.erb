@@ -1,20 +1,5 @@
 <% provide(:title, "通知一覧") %>
-<% password = @password %>
 <h1>通知一覧</h1>
-
-<%  @notifcations.each do |notification|  %>
-<p>token: <%=notification.token%>
-get_token:  <%=notification.get_token%>
-  <%= notification.salt%>
-  <%= notification.month %>
-   <%= notification.day %>
-   <%= notification.train %>
-    <%= notification.dep_stn %>
-     <%= notification.arr_stn %>
-     <%= link_to "削除", "/notifications/#{notification.id}/destroy" %>
-</p>
-<%end%>
-
 <div class="container">
   <table class="table">
     <thead>
@@ -24,7 +9,7 @@ get_token:  <%=notification.get_token%>
         <th>列車</th>
         <th>乗車駅</th>
         <th>下車駅</th>
-        <th></th>
+        <th>トークン</th>
       </tr>
     </thead>
     <tbody>
@@ -35,6 +20,7 @@ get_token:  <%=notification.get_token%>
         <td><%= notification.train %></td>
         <td><%= notification.dep_stn %></td>
         <td><%= notification.arr_stn %></td>
+        <td><%= notification.get_token[0..1] + "•••••••••" %></td>
         <td><%= link_to "編集", "/notifications/#{notification.id}/edit" %></td>
         <td><%= link_to "削除", "/notifications/#{notification.id}/destroy" %></td>
       </tr>

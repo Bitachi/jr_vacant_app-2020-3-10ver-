@@ -16,9 +16,9 @@ class NotificationsController < ApplicationController
     @notification = Notification.new(notification_params)
     @current_user = current_user
     @notification.email = @current_user.email
-    if @notification.save && system("python3 form_valid?.py #{@notification.month} #{@notification.day} #{@notification.hour} #{@notification.minute} #{@notification.train} #{@notification.dep_stn} #{@notification.arr_stn}")
+    if @notification.save && (system("python3 form_valid?.py #{@notification.month} #{@notification.day} #{@notification.hour} #{@notification.minute} #{@notification.train} #{@notification.dep_stn} #{@notification.arr_stn}") == 1)
       flash[:success] = "通知の登録に成功しました"
-      redirect_to(root_path)
+      redirect_to notifications_index_path
     else
       flash[:danger] = "入力内容が不正です。"
       redirect_to notifications_path
