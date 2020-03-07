@@ -1,14 +1,20 @@
 <% provide(:title, "ホーム") %>
-<div class="center jumbotron">
 
+  <div class="home-top-wrapper">
+    <h1>JR空席通知アプリ</h1>
+    <p>
+      このページは<a target="_blank" href="https://railstutorial.jp/">チュートリアル</a>を参考にして作られました。
 
-  <h1>JR空席通知アプリ</h1>
-  <p>
-    このページは<a target="_blank" href="https://railstutorial.jp/">この</a>チュートリアルを参考にして作られました。
+    </p>
+    <p>また、<a target="_blank" href="http://www.jr.cyberstation.ne.jp/vacancy/Vacancy.html">JRサイバーステーション</a>を用いて空席を通知します。利用可能時間は6:30~22:30です。
 
-  </p>
-  <p>また、<a target="_blank" href="http://www.jr.cyberstation.ne.jp/vacancy/Vacancy.html">この</a>サイトを用いて空席を通知します。利用可能時間は6:30~22:30です。
+    </p>
+    <% if not logged_in? %>
+      <%= link_to "新規登録", signup_path, class: "btn btn-lg btn-primary" %>
+    <%else%>
+      <%= link_to "通知登録", notifications_path, class: "btn btn-lg btn-primary" %>
+      <%= link_to "通知一覧", notifications_index_path, class: "btn btn-lg btn-primary" %>
+    <%end%>
+  </div>
 
-  </p>
-  <%= link_to "新規登録", signup_path, class: "btn btn-lg btn-primary" %>
 </div>

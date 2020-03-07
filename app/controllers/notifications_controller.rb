@@ -1,5 +1,6 @@
 class NotificationsController < ApplicationController
-  before_action :logged_in_user, only: [:index, :create, :update, :edit]
+  before_action :logged_in_user, only: [:index, :create, :update, :edit, :destroy]
+  before_action :current_user?, only: [:edit, :update, :destroy]
   include SessionsHelper
   require "#{Rails.root}/app/models/notification.rb"
 
@@ -67,4 +68,13 @@ class NotificationsController < ApplicationController
       redirect_to login_path
     end
   end
+  #ログインユーザの確認
+  def current_user?
+    @notification = Notification.find(params[:id])
+    unless @notification.email == @current_user.email
+      flash[:danger] = "アクセスが不正です"
+      redirect_to notifications_index_path
+    end
+  end
+
 end

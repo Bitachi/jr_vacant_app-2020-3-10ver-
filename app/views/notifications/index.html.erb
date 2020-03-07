@@ -1,30 +1,42 @@
 <% provide(:title, "通知一覧") %>
+<div class="container">
+
+
 <h1>通知一覧</h1>
 <div class="container">
   <table class="table">
     <thead>
       <tr>
-        <th>乗車月</th>
-        <th>乗車日</th>
-        <th>列車</th>
-        <th>乗車駅</th>
-        <th>下車駅</th>
         <th>トークン</th>
+        <th>乗車日</th>
+        <th>乗車時間</th>
+        <th>列車</th>
+        <th>乗車区間</th>
       </tr>
     </thead>
     <tbody>
       <%  @notifcations.each do |notification|  %>
       <tr>
-        <td scope="row"><%= notification.month %></td>
-        <td><%= notification.day %></td>
+        <td><%=notification.get_token[0..1] + "•••••••••" %></td>
+        <td scope="row"><%=notification.month + "/" + notification.day %></td>
+        <td><%= notification.hour + ":"+ notification.minute %></td>
         <td><%= notification.train %></td>
-        <td><%= notification.dep_stn %></td>
-        <td><%= notification.arr_stn %></td>
-        <td><%= notification.get_token[0..1] + "•••••••••" %></td>
-        <td><%= link_to "編集", "/notifications/#{notification.id}/edit" %></td>
-        <td><%= link_to "削除", "/notifications/#{notification.id}/destroy" %></td>
+        <td><%= notification.dep_stn  + " → " + notification.arr_stn%></td>
+        <td><%= link_to "/notifications/#{notification.id}/edit" do %><i class="fa fa-edit"></i><%end%></td>
+        <td><i class="fa fa-remove notification-modal-show"></i></td>
+        <div class="notification-modal-wrapper">
+          <div class="modal">
+            <i class="fa fa-remove notification-hide"></i>
+            <p></p>
+            <h1>本当に削除しますか？</h1>
+            <%= link_to "削除", "/notifications/#{notification.id}/destroy", class: "btn btn-lg btn-primary" %>
+          </div>
       </tr>
       <%end%>
+
+
+      </div>
     </tbody>
   </table>
+</div>
 </div>

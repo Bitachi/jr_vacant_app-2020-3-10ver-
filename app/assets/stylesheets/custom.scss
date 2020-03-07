@@ -1,7 +1,11 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-/* universal */
-
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+/*uiversal*/
 body {
   padding-top: 60px;
 }
@@ -213,4 +217,10 @@ footer ul li {
     padding: 10px 0;
     border-bottom: 1px solid $gray-lighter;
   }
+}
+/*button*/
+
+
+#login-show {
+  display: block;
 }
