@@ -2,12 +2,12 @@
 <div class="container">
 
 
-<h1>通知一覧(管理者は<%= link_to notifications_admin_path  do%>こちら<%end%>)</h1>
+<h1>管理者用通知一覧(通常の通知一覧は<%=link_to notifications_index_path do%>こちら<%end%>)</h1>
 <div class="container">
   <table class="table">
     <thead>
       <tr>
-        <th>トークン</th>
+        <th>メールアドレス</th>
         <th>乗車日</th>
         <th>乗車時間</th>
         <th>列車</th>
@@ -15,9 +15,9 @@
       </tr>
     </thead>
     <tbody>
-      <%  @notifcations.each do |notification|  %>
+      <%  @notifications.each do |notification|  %>
       <tr>
-        <td><%=notification.get_token[0..1] + "•••••••••" %></td>
+        <td><%=notification.email %></td>
         <td scope="row"><%=notification.month + "/" + notification.day %></td>
         <td><%= notification.hour + ":"+ notification.minute %></td>
         <td><%= notification.train %></td>

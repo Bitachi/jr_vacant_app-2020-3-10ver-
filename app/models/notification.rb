@@ -21,7 +21,7 @@ class Notification < ApplicationRecord
     # 暗号器を生成
     enc = OpenSSL::Cipher::AES.new(bit, :CBC)
     if plain_text == nil
-      return ["aaaaaaaa", salt]
+      return ["FILL_IN_YOUR_TOKEN", salt]
     else
       enc.encrypt
 
@@ -52,8 +52,8 @@ class Notification < ApplicationRecord
 # ======================================
   def aes_decrypt(encrypted_text, password, salt, bit)
 
-    if encrypted_text == nil
-      return "aaaaaaaa"
+    if encrypted_text == nil || salt == nil
+      return "FILL_IN_YOUR_TOKEN"
     else
           # Base64でデコード
       encrypted_text = Base64.decode64(encrypted_text)

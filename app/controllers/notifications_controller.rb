@@ -1,11 +1,16 @@
 class NotificationsController < ApplicationController
   before_action :logged_in_user, only: [:index, :create, :update, :edit, :destroy]
   before_action :current_user?, only: [:edit, :update, :destroy]
+  before_action :admin_user, only: :admin
   include SessionsHelper
   require "#{Rails.root}/app/models/notification.rb"
 
   def new
     @notification = Notification.new()
+  end
+
+  def admin
+    @notifications = Notification.all
   end
 
   def index
@@ -17,9 +22,14 @@ class NotificationsController < ApplicationController
     @notification = Notification.new(notification_params)
     @current_user = current_user
     @notification.email = @current_user.email
-    if @notification.save && (system("python3 form_valid?.py #{@notification.month} #{@notification.day} #{@notification.hour} #{@notification.minute} #{@notification.train} #{@notification.dep_stn} #{@notification.arr_stn}") == 1)
-      flash[:success] = "通知の登録に成功しました"
-      redirect_to notifications_index_path
+    if system("python3 form_valid?.py #{@notification.month} #{@notification.day} #{@notification.hour} #{@notification.minute} #{@notification.train} #{@notification.dep_stn} #{@notification.arr_stn}")
+      if @notification.save
+        flash[:success] = "通知の登録に成功しました"
+        redirect_to notifications_index_path
+      else
+        flash[:danger] = "登録内容の保存に失敗しました。"
+        redirect_to notifications_path
+      end
     else
       flash[:danger] = "入力内容が不正です。"
       redirect_to notifications_path
@@ -75,6 +85,11 @@ class NotificationsController < ApplicationController
       flash[:danger] = "アクセスが不正です"
       redirect_to notifications_index_path
     end
+  end
+
+  # 管理者かどうか確認
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
   end
 
 end
