@@ -1,6 +1,7 @@
 class NotificationsController < ApplicationController
   before_action :logged_in_user, only: [:index, :create, :update, :edit, :destroy]
-  before_action :current_user?, only: [:edit, :update, :destroy]
+  before_action :current_user?, only: [:edit, :update]
+  before_action :current_user_or_admin?, only: :destroy
   before_action :admin_user, only: :admin
   include SessionsHelper
   require "#{Rails.root}/app/models/notification.rb"
@@ -22,7 +23,7 @@ class NotificationsController < ApplicationController
     @notification = Notification.new(notification_params)
     @current_user = current_user
     @notification.email = @current_user.email
-    if system("python3 form_valid?.py #{@notification.month} #{@notification.day} #{@notification.hour} #{@notification.minute} #{@notification.train} #{@notification.dep_stn} #{@notification.arr_stn}")
+    if `python3 form_valid?.py "#{@notification.month}" "#{@notification.day}" "#{@notification.hour}" "#{@notification.minute}" "#{@notification.train}" "#{@notification.dep_stn}" "#{@notification.arr_stn}"`=="1\n"
       if @notification.save
         flash[:success] = "通知の登録に成功しました"
         redirect_to notifications_index_path
@@ -81,7 +82,7 @@ class NotificationsController < ApplicationController
   #ログインユーザの確認
   def current_user?
     @notification = Notification.find(params[:id])
-    unless @notification.email == @current_user.email
+    unless (@notification.email == @current_user.email)
       flash[:danger] = "アクセスが不正です"
       redirect_to notifications_index_path
     end
@@ -92,4 +93,13 @@ class NotificationsController < ApplicationController
     redirect_to(root_url) unless current_user.admin?
   end
 
+  #管理者かどうかを判定(True or False)
+  def admin_user?
+    current_user.admin?
+  end
+
+  def current_user_or_admin?
+    @notification = Notification.find(params[:id])
+    redirect_to(notifications_index_path) unless ((admin_user?) || (@notification.email == @current_user.email))
+  end
 end
