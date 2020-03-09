@@ -30,6 +30,6 @@ class MicropostsController < ApplicationController
     end
 
     def micropost_search_params
-      params.fetch(:search, {}).permit(:category, :area)
+      params.fetch(:search, {area:"JR北海道",category:"遅延情報"}).permit(:category, :area)
     end
 end
