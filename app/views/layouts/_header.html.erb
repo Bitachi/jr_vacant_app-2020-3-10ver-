@@ -5,6 +5,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "ホーム",   root_path %></li>
         <% if logged_in? %>
+          <li><%= link_to "鉄道情報", microposts_index_path%></li>
           <li><%= link_to "通知登録", notifications_path %></li>
           <li><%= link_to "通知一覧", notifications_index_path %></li>
           <li><%= link_to "ユーザー", users_path %></li>

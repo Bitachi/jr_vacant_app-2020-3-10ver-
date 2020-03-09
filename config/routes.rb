@@ -21,4 +21,8 @@ Rails.application.routes.draw do
   post "/notifications/:id/update", to: "notifications#update"
   delete "/notifications", to:"notifications#destroy"
   resources :users
+
+  get "/microposts/index", to: "microposts#index"
+  post "microposts/index", to: "microposts#index"
+  resources :microposts,          only: [:create, :destroy]
 end
