@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user,     only: :destroy
+  include SessionsHelper
   def new
   end
 
@@ -12,6 +13,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   def new
@@ -57,12 +59,12 @@ class UsersController < ApplicationController
     end
 
     #ログインしているかどうか確認
-    def logged_in_user
-      unless logged_in?
-        flash[:danger] = "ログインしてください"
-        redirect_to login_path
-      end
-    end
+    #def logged_in_user
+    #  unless logged_in?
+    #    flash[:danger] = "ログインしてください"
+    #    redirect_to login_path
+    #  end
+    #end
 
     #ログインしているユーザと一致しているか確認
     def correct_user

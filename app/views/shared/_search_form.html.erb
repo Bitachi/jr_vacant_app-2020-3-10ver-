@@ -1,0 +1,8 @@
+<%= form_with(scope: :search, url: "/microposts/index", method: :get, local: true) do |f| %>
+  <%#= render 'shared/error_messages', object: f.object %>
+  <%= f.label :area, "エリア"%><br>
+  <%= f.select :area, [["JR北海道", "JR北海道"], ["JR東日本", "JR東日本"], ["JR東海", "JR東海"], ["JR西日本", "JR西日本"], ["JR四国", "JR四国"], ["JR九州", "JR九州"], ["JR貨物", "JR貨物"]] ,class:"form-control", value: @search_params[:area] %>
+  <%= f.label :category, "カテゴリ" %><br>
+  <%= f.select :category, [["遅延情報", "遅延情報"], ["運休情報", "運休情報"], ["観光情報", "観光情報"], ["マニア向け情報", "マニア向け情報"], ["その他", "その他"]] ,class:"form-control", value: @search_params[:category] %>
+  <%= f.submit "検索", class: "btn btn-primary" %>
+<% end %>

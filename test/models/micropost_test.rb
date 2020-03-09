@@ -4,8 +4,7 @@ class MicropostTest < ActiveSupport::TestCase
 
   def setup
     @user = users(:michael)
-    # このコードは慣習的に正しくない
-    @micropost = Micropost.new(content: "Lorem ipsum", user_id: @user.id)
+    @micropost = @user.microposts.build(content: "test content")
   end
 
   test "should be valid" do
@@ -25,5 +24,18 @@ class MicropostTest < ActiveSupport::TestCase
   test "content should be at most 140 characters" do
     @micropost.content =  "a" * 141
     assert_not @micropost.valid?
+  end
+
+  test "order should be most recent first" do
+    assert_equal microposts(:most_recent), Micropost.first
+  end
+
+  test "associated microposts should be destroyed" do
+    @user.save
+    @micropost.save
+    count = @user.microposts.count
+    assert_difference 'Micropost.count', -count do
+      @user.destroy
+    end
   end
 end
