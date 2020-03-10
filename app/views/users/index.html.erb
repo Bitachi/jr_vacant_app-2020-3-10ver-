@@ -1,12 +1,7 @@
 <% provide(:title, 'ユーザー一覧') %>
 <div class="container">
   <h1>ユーザー一覧</h1>
-  <%= will_paginate %>
-  <ul class="users">
-    <% @users.each do |user| %>
-      <%= render user %>
-    <% end %>
-  </ul>
-
-  <%= will_paginate %>
+  <%= will_paginate @users, :previous_label => "&lt 前へ", :next_label => "次へ &gt" %>
+  <%= render "user" %>
+  <%= will_paginate @users, :previous_label => "&lt 前へ", :next_label => "次へ &gt" %>
 </div>

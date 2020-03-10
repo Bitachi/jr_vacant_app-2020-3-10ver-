@@ -1,10 +1,26 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
+  before_action :admin_user,     only: [:destroy, :admin_on, :admin_off]
   include SessionsHelper
   def new
   end
+
+  def admin_on
+    @user = User.find(params[:id])
+    @user.admin = true
+    @user.save
+    redirect_to users_path
+  end
+
+
+  def admin_off
+    @user = User.find(params[:id])
+    @user.admin = false
+    @user.save
+    redirect_to users_path
+  end
+
 
   def index
     @users = User.paginate(page: params[:page])
@@ -50,6 +66,8 @@ class UsersController < ApplicationController
     flash[:success] = "User deleted"
     redirect_to users_url
   end
+  
+
 
   private
 

@@ -1,5 +1,6 @@
 class MicropostsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
+  before_action :admin_or_your_post?, only: :destroy
 
   def create
     @micropost = current_user.microposts.build(micropost_params)
@@ -12,6 +13,9 @@ class MicropostsController < ApplicationController
   end
 
   def destroy
+    store_location
+    Micropost.find_by(id: params[:id]).destroy
+    redirect_back_or(microposts_index_path)
   end
 
   def index
@@ -21,6 +25,10 @@ class MicropostsController < ApplicationController
       #@feed_items = current_user.feed.paginate(page: params[:page])
       @feed_items = User.search(@search_params).paginate(page: params[:page])
     end
+  end
+
+  def admin_or_your_post?
+    redirect_to root_url unless((Micropost.find(params[:id]).user_id == current_user.id) || (current_user.admin))
   end
 
 

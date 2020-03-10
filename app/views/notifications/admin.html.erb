@@ -23,20 +23,9 @@
         <td><%= notification.train %></td>
         <td><%= notification.dep_stn  + " → " + notification.arr_stn%></td>
         <td><%= link_to "/notifications/#{notification.id}/edit" do %><i class="fa fa-edit"></i><%end%></td>
-        <td><i class="fa fa-remove notification-modal-show"></i></td>
-        <div class="notification-modal-wrapper">
-          <div class="modal">
-            <i class="fa fa-remove notification-hide"></i>
-            <p></p>
-            <h1>本当に削除しますか？</h1>
-            <%= link_to "削除", "/notifications/#{notification.id}/destroy", class: "btn btn-lg btn-primary" %>
-          </div>
+        <td><%= link_to "/notifications/#{notification.id}/destroy" , data: { confirm: "本当に削除しますか？" } do %><i class="fa fa-remove"></i><%end%></td>
       </tr>
       <%end%>
-
-
-      </div>
     </tbody>
   </table>
-</div>
 </div>

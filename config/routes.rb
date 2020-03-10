@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
+  get "/users/:id/admin_on", to: "users#admin_on"
+  get "/users/:id/admin_off", to: "users#admin_off"
+
   get "/notifications", to: "notifications#new"
   get "/notifications/index", to: "notifications#index"
   get "notifications/:id/destroy", to: "notifications#destroy"

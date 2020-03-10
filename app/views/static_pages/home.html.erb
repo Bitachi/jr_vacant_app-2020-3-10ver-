@@ -1,6 +1,6 @@
 <% provide(:title, "ホーム") %>
 
-  <div class="home-top-wrapper">
+  <div class="home-top-wrapper bg-light">
     <h1>JR空席通知アプリ</h1>
     <p>
       このページは<a target="_blank" href="https://railstutorial.jp/">チュートリアル</a>を参考にして作られました。
@@ -14,9 +14,8 @@
     <% if not logged_in? %>
       <%= link_to "新規登録", signup_path, class: "btn btn-lg btn-primary" %>
     <%else%>
+      <%= link_to "鉄道情報", microposts_index_path, class: "btn btn-lg btn-primary" %>
       <%= link_to "通知登録", notifications_path, class: "btn btn-lg btn-primary" %>
       <%= link_to "通知一覧", notifications_index_path, class: "btn btn-lg btn-primary" %>
     <%end%>
   </div>
-
-</div>

@@ -1,38 +1,6 @@
 // Place all the styles related to the Notifications controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.notification-modal-wrapper {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 100;
-  /* display: none;を追加してください */
-  display:none;
-}
-
-.modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%,-50%);
-  -webkit-transform : translate(-50%,-50%);
-  transform : translate(-50%,-50%);
-  background-color: white;
-  border-radius: 4px;
-  width: 60%;
-  min-height: 300px;
-  text-align: center;
-}
-
-.notification-hide {
-  float: left;
-  font-size: 28px;
-  cursor: pointer;
-}
-
-.notification-modal-show {
-  cursor: pointer;
+.notification-icon {
+  font-size: 20px;
 }
